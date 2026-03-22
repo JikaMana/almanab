@@ -1,0 +1,566 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap");
+
+:root {
+  --gold: #bf9b30;
+  --dark: #222222;
+  --white: #ffffff;
+  --light-gray: #f9f9f9;
+
+  --font-heading: "Syne", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark);
+  background-color: var(--light-gray);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* ─── NAVBAR ──────────────────────────────────────────────────────────────── */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  mix-blend-mode: difference;
+  color: var(--white);
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ─── HERO ────────────────────────────────────────────────────────────────── */
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 5%;
+  background:
+    linear-gradient(rgba(34, 34, 34, 0.75), rgba(34, 34, 34, 0.85)),
+    url("../assets/hero-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 40%,
+    rgba(212, 175, 55, 0.15),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 7rem);
+  color: white;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.hero-title .line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-desc {
+  max-width: 600px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 3rem;
+  opacity: 0; /* animated in by GSAP */
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0; /* animated in by GSAP */
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--gold);
+  animation: scrollDown 2s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ─── HORIZONTAL SCROLL CONTAINER ────────────────────────────────────────── */
+
+/*
+  GSAP will pin this element and animate the panels horizontally.
+  We must NOT set a fixed width here — GSAP handles the transform.
+  overflow:hidden keeps the non-active panel clipped.
+*/
+.horizontal-sections {
+  display: flex;
+  overflow: hidden; /* hides the second panel until scroll */
+  width: 100%;
+  height: 100vh;
+}
+
+.panel {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0; /* panels must never compress */
+}
+
+/* ─── SHARED DIVISION LAYOUT ──────────────────────────────────────────────── */
+
+.division {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 5%;
+  position: relative;
+}
+
+.division-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.div-content {
+  padding: 2rem 0;
+}
+
+.div-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--gold);
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  border-radius: 50px;
+}
+
+.div-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.div-text {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  opacity: 0.9;
+}
+
+.features-list {
+  list-style: none;
+  margin-bottom: 3rem;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.features-list i {
+  color: var(--gold);
+}
+
+.div-image-container {
+  position: relative;
+  height: 75vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.div-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+}
+
+/* ─── TECHNOLOGIES PANEL ──────────────────────────────────────────────────── */
+
+.tech-section {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+.tech-section .div-text {
+  color: #cccccc;
+}
+
+/* ─── PROCESS PANEL ───────────────────────────────────────────────────────── */
+
+.process-section {
+  background-color: var(--dark);
+  color: var(--white);
+  padding: 5rem 5%;
+  display: flex;
+  align-items: center;
+}
+
+/* Layout: header left, steps right */
+.process-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5rem;
+  align-items: start;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.process-header {
+  position: sticky;
+  top: 5rem;
+}
+
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1.6fr;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.step-number {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-weight: 800;
+  padding-top: 0.2rem;
+}
+
+.step-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.step-desc {
+  color: #aaa;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ─── APPARELS SECTION ────────────────────────────────────────────────────── */
+
+.apparels-section {
+  background-color: var(--white);
+  color: var(--dark);
+}
+
+/* Flip image/content order for visual variety */
+.apparels-section .division-inner {
+  direction: rtl;
+}
+
+.apparels-section .div-content {
+  direction: ltr;
+}
+
+/* ─── VALUES SECTION ──────────────────────────────────────────────────────── */
+
+.values-section {
+  padding: 10rem 5%;
+  background-color: var(--white);
+  text-align: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+}
+
+.value-card {
+  padding: 3rem 2rem;
+  background: var(--light-gray);
+  border-radius: 20px;
+  transition:
+    transform 0.3s ease,
+    border-bottom 0.3s ease;
+  text-align: left;
+  border-bottom: 4px solid transparent;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  border-bottom: 4px solid var(--gold);
+}
+
+.value-card i {
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  width: 40px;
+  height: 40px;
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
+
+.footer {
+  background-color: var(--gold);
+  color: var(--dark);
+  padding: 6rem 5% 3rem;
+  text-align: center;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  text-align: left;
+}
+
+.footer-col h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.contact-item i {
+  background: var(--dark);
+  color: var(--gold);
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(34, 34, 34, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--dark);
+  color: var(--gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(34, 34, 34, 0.2);
+  padding-top: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ─── BUTTON ──────────────────────────────────────────────────────────────── */
+
+.visit-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: var(--gold);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.visit-button:hover {
+  background-color: var(--dark);
+  color: var(--gold);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 992px) {
+  .division-inner,
+  .process-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .div-image-container {
+    height: 50vh;
+    order: -1;
+  }
+
+  .apparels-section .division-inner {
+    direction: ltr;
+  }
+
+  .step-row {
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: auto auto;
+    padding: 2rem 0;
+  }
+
+  .step-desc {
+    grid-column: 2;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  /* Horizontal scroll becomes vertical on mobile */
+  .horizontal-sections {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .panel {
+    height: auto;
+    min-height: 100vh;
+  }
+}

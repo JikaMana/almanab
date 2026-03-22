@@ -1,0 +1,48 @@
+---
+import icon from "../../public/almanab.png"
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="icon" type="image/png" href={icon.src} />
+
+    <meta name="generator" content={Astro.generator} />
+    <title>Al Manāb | Group</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Al Manāb",
+      "url": "https://almanab.com",
+      "logo": "https://almanab.com/almanab.png",
+      "description": "Al Manāb is a Nigerian enterprise offering software development, web solutions, mobile apps, and premium Islamic apparel including Jallabiyas, caps, thobes.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Port Harcourt",
+        "addressCountry": "Nigeria"
+      },
+      "sameAs": [
+        "https://instagram.com/almanab.tech",
+        "https://instagram.com/almanab.apparels",
+        "https://tech.almanab.com",
+        "https://apparels.almanab.com"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
