@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import icon from "../assets/almanab.svg"
+
 ---
 
 <html lang="en">
@@ -38,11 +40,11 @@ import "../styles/global.css";
 </head>
 <body>
 
-  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+  <!-- NAVIGATION -->
   <nav>
     <div class="logo">
       <a href="/">
-        <img src="/images/almanab.png" alt="AL MANAB" width="80" />
+        <img src={icon.src} alt="AL MANAB" width="80" />
       </a>
     </div>
     <div class="nav-links">
@@ -53,7 +55,7 @@ import "../styles/global.css";
     </div>
   </nav>
 
-  <!-- ── HERO ───────────────────────────────────────────────────────────── -->
+  <!-- HERO─ -->
   <section class="hero">
     <div class="hero-subtitle">
       <span class="anim-up">Based in Port Harcourt. Serving Nationwide.</span>
@@ -74,7 +76,7 @@ import "../styles/global.css";
   </section>
 
   <!--
-    ── HORIZONTAL SCROLL WRAPPER ──────────────────────────────────────────
+   HORIZONTAL SCROLL WRAPPER
     Contains exactly TWO .panel children.
     GSAP pins this element and slides the panels left on scroll.
     Nothing else should be inside this wrapper.
@@ -175,7 +177,7 @@ import "../styles/global.css";
   </div>
   <!-- END .horizontal-sections -->
 
-  <!-- ── APPARELS ─────────────────────────────────────────────────────────
+  <!-- APPARELS─
        Lives OUTSIDE the horizontal wrapper — scrolls normally.
   -->
   <section id="apparels" class="division apparels-section">
@@ -213,7 +215,7 @@ src="/src/assets/almanab-apparels.png"          alt="Premium Fabric and Apparels
     </div>
   </section>
 
-  <!-- ── VALUES ──────────────────────────────────────────────────────────── -->
+  <!-- VALUES -->
   <section id="about" class="values-section">
     <div class="div-label">Our Philosophy</div>
     <h2 class="div-title" style="margin-top: 1rem;">Values that Drive Us.</h2>
@@ -245,13 +247,13 @@ src="/src/assets/almanab-apparels.png"          alt="Premium Fabric and Apparels
     </div>
   </section>
 
-  <!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+  <!-- FOOTER -->
   <footer id="contact" class="footer">
     <div class="footer-grid">
       <div class="footer-col">
         <h3>AL MANĀB GROUP</h3>
         <a href="/">
-          <img src="/images/almanab.png" alt="AL MANAB" width="150" />
+          <img src={icon.src} alt="AL MANAB" width="150" />
         </a>
         <p style="font-weight: 500; opacity: 0.9; margin-top: 1rem;">
           Bridging Tradition and the Future.
