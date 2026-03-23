@@ -6,7 +6,7 @@ createIcons({ icons });
 
 gsap.registerPlugin(ScrollTrigger);
 
-// HERO ANIMATIONS
+// ─── HERO ANIMATIONS ─────────────────────────────────────────────────────────
 
 const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
@@ -28,7 +28,7 @@ heroTl
     "-=0.5",
   );
 
-// NAVBAR SCROLL BEHAVIOUR─
+// ─── NAVBAR SCROLL BEHAVIOUR ─────────────────────────────────────────────────
 
 const nav = document.querySelector("nav") as HTMLElement;
 
@@ -50,34 +50,53 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// HORIZONTAL SCROLL (Tech + Process panels)─
+// ─── HORIZONTAL SCROLL (Tech + Process panels) ───────────────────────────────
+//
+// Only runs on desktop (>992px). On mobile the CSS already switches
+// .horizontal-sections to flex-direction:column, so GSAP must stay out
+// completely — otherwise it pins the container and hides the second panel.
 
 const hSection = document.querySelector<HTMLElement>(".horizontal-sections");
 
 if (hSection) {
   const panels = gsap.utils.toArray<HTMLElement>(".horizontal-sections .panel");
 
-  // Total extra scroll distance = (number of panels - 1) × 100vw
-  const totalScroll = window.innerWidth * (panels.length - 1);
+  ScrollTrigger.matchMedia({
+    // ── DESKTOP ──────────────────────────────────────────────────────────
+    "(min-width: 993px)": function () {
+      const totalScroll = window.innerWidth * (panels.length - 1);
 
-  gsap.to(panels, {
-    xPercent: -100 * (panels.length - 1),
-    ease: "none",
-    scrollTrigger: {
-      trigger: hSection,
-      pin: true,
-      scrub: 1,
-      snap: {
-        snapTo: 1 / (panels.length - 1),
-        duration: { min: 0.3, max: 0.5 },
-        ease: "power1.inOut",
-      },
-      end: () => "+=" + totalScroll,
+      gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: hSection,
+          pin: true,
+          scrub: 1,
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: { min: 0.3, max: 0.5 },
+            ease: "power1.inOut",
+          },
+          end: () => "+=" + totalScroll,
+        },
+      });
+    },
+
+    // ── MOBILE ───────────────────────────────────────────────────────────
+    // No GSAP at all — CSS handles the vertical stacking.
+    // Clear any inline transforms GSAP may have set during a resize
+    // from desktop to mobile.
+    "(max-width: 992px)": function () {
+      panels.forEach((panel) => {
+        gsap.set(panel, { clearProps: "all" });
+      });
+      gsap.set(hSection, { clearProps: "all" });
     },
   });
 }
 
-// STANDARD SCROLL ANIMATIONS (sections outside horizontal container)
+// ─── STANDARD SCROLL ANIMATIONS ──────────────────────────────────────────────
 
 // Apparels section
 const apparelsDiv = document.querySelector<HTMLElement>(".apparels-section");
